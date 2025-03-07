@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DirectoryView from "./DirectoryView";
+import NavBar, { NavItem } from "./NavBar";
 
 export default function DemoFileUI() {
   //----- State -----
@@ -19,20 +20,11 @@ export default function DemoFileUI() {
   //----- View -----
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <span className="navbar-brand">
-            Helldivers 2 Mod Manager - Web
-          </span>
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <button className="btn btn-dark" onClick={onBrowse}>
-                Browse Test
-              </button>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <NavBar>
+        <NavItem>
+          <button className="btn btn-dark" onClick={onBrowse}>Browse Test</button>
+        </NavItem>
+      </NavBar>
       {folder != null && <DirectoryView directory={folder} />}
     </>
   );

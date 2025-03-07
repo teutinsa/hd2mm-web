@@ -1,10 +1,14 @@
 import { useState } from "react";
 import DemoFileUI from "./DemoFileUI";
+import { useTranslation } from "react-i18next";
+import NavBar from "./NavBar";
 
 export default function App() {
+  const { t } = useTranslation();
+  
   //----- State -----
-  const [acknowledged, setAcknowledged] = useState(false);
-
+  const [ acknowledged, setAcknowledged ] = useState(false);
+  
   //----- Events -----
   function onOkClick() {
     setAcknowledged(true);
@@ -16,9 +20,7 @@ export default function App() {
     return (
       <div className="position-relative vw-100 vh-100">
         <div className="position-absolute top-50 start-50 translate-middle border rounded-1 mw-50 p-3 bg-body-tertiary shadow-lg">
-          <span className="text-center text-danger">
-            This browser does not support Chromes File System API.
-          </span>
+          <span className="text-center text-danger">{t("app.unsupportedError")}</span>
         </div>
       </div>
     );
@@ -28,17 +30,16 @@ export default function App() {
     return <DemoFileUI />;
   } else {
     return (
-      <div className="position-relative vw-100 vh-100">
-        <div className="vstack gap-3 position-absolute top-50 start-50 translate-middle border rounded-1 mw-50 p-3">
-          <h3 className="text-center">
-            This Web-App uses Chromes File System API to access files on your system.
-          </h3>
-          <span>
-            Don't worry. This app will only have access to parts of your file system that you gave it explicit permission to.
-          </span>
-          <button className="btn btn-primary" onClick={onOkClick}>{"OK"}</button>
+      <>
+        <NavBar />
+        <div className="position-relative vw-100 vh-100">
+          <div className="vstack gap-3 position-absolute top-50 start-50 translate-middle border rounded-1 mw-50 p-3">
+            <h3 className="text-center">{t("app.disclaimer.title")}</h3>
+            <span>{t("app.disclaimer.content")}</span>
+            <button className="btn btn-primary" onClick={onOkClick}>{t("app.disclaimer.button")}</button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }
