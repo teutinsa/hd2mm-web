@@ -20,7 +20,7 @@ export default function DirectoryView(props: DirectoryViewProps) {
 
   //----- Memos -----
   const filteredItems = useMemo(
-    () => [ ...items.sort((a, b) => asNumber(a.kind) - asNumber(b.kind)).entries() ],
+    () => [ ...items.filter((h) => h.name.includes(search)).sort((a, b) => asNumber(a.kind) - asNumber(b.kind)).entries() ],
     [ items, search ]
   );
 	
