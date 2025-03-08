@@ -75,7 +75,7 @@ export default function DirectoryView(props: DirectoryViewProps) {
   });
 	
   return (
-		<table className="table table-hover">
+		<table className="table table-hover user-select-none">
 			<thead>
 				<tr>
 					<th />
