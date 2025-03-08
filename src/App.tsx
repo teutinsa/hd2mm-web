@@ -25,11 +25,13 @@ export default function App() {
       </div>
     );
   }
-
-  if (acknowledged) {
-    return <DemoFileUI />;
-  } else {
-    return (
+  
+  return (
+    <>
+    <title>{t("app.title")}</title>
+    {acknowledged ? (
+      <DemoFileUI />
+    ) : (
       <>
         <NavBar />
         <div className="position-relative vw-100 vh-100">
@@ -40,6 +42,7 @@ export default function App() {
           </div>
         </div>
       </>
-    );
-  }
+    )}
+    </>
+  );
 }
