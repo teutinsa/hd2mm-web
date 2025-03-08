@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type DirectoryViewProps = {
 	directory: FileSystemDirectoryHandle;
@@ -7,6 +7,7 @@ type DirectoryViewProps = {
 export default function DirectoryView(props: DirectoryViewProps) {
   //----- State -----
 	const [ items, setItems ] = useState<FileSystemHandle[]>([]);
+  const [ search, setSearch ] = useState("");
 
   //----- Effects -----
   useEffect(() => {
@@ -17,8 +18,14 @@ export default function DirectoryView(props: DirectoryViewProps) {
     fetchItems();
   });
 
+  //----- Memos -----
+  const filteredItems = useMemo(
+    () => [ ...items.sort((a, b) => asNumber(a.kind) - asNumber(b.kind)).entries() ],
+    [ items, search ]
+  );
+	
   //----- View -----
-  const tableItems = [...items.sort((a, b) => asNumber(a.kind) - asNumber(b.kind)).entries()].map(([index, handle]) =>
+  const tableItems = filteredItems.map(([index, handle]) => (
     <tr key={index}>
       <td>
         {handle.kind === "directory" ? (
@@ -29,8 +36,8 @@ export default function DirectoryView(props: DirectoryViewProps) {
       </td>
       <td>{handle.name}</td>
     </tr>
-  );
-	
+  ));
+
   return (
 		<table className="table table-striped">
 			<thead>
