@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { KeyboardEvent, useEffect, useMemo, useState } from "react";
 
 type DirectoryViewProps = {
 	directory: FileSystemDirectoryHandle;
@@ -7,7 +7,7 @@ type DirectoryViewProps = {
 export default function DirectoryView(props: DirectoryViewProps) {
   //----- State -----
 	const [ items, setItems ] = useState<FileSystemHandle[]>([]);
-  const [ search, setSearch ] = useState("");
+	const [ search, setSearch ] = useState("");
 
   //----- Effects -----
   useEffect(() => {
@@ -24,6 +24,24 @@ export default function DirectoryView(props: DirectoryViewProps) {
     [ items, search ]
   );
 	
+  //----- Events -----
+  function onSearch() {
+    const text = (document.getElementById("dirSearch") as HTMLInputElement).value;
+    setSearch(text);
+  }
+
+  function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      onSearch();
+    }
+  }
+
+  function onChange() {
+    const text = (document.getElementById("dirSearch") as HTMLInputElement).value;
+    if (text === "")
+      setSearch("");
+  }
+
   //----- View -----
   const tableItems = filteredItems.map(([index, handle]) => (
     <tr key={index}>
@@ -37,10 +55,19 @@ export default function DirectoryView(props: DirectoryViewProps) {
       <td>{handle.name}</td>
     </tr>
   ));
-
+	
   return (
 		<table className="table table-striped">
 			<thead>
+				<tr>
+					<th />
+					<td className="d-flex">
+            <input id="dirSearch" className="form-control me-2" type="search" placeholder="Search" aria-label="Search" defaultValue={search} onKeyDown={onKeyDown} onChange={onChange}/>
+            <button className="btn btn-outline-primary" onClick={onSearch}>
+              <i className="bi bi-search" />
+            </button>
+          </td>
+				</tr>
 				<tr>
 					<th>Type</th>
 					<th>Name</th>
