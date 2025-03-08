@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect, useState } from "react";
+import { KeyboardEvent, useEffect, useMemo, useState } from "react";
 
 type DirectoryViewProps = {
 	directory: FileSystemDirectoryHandle;
@@ -18,6 +18,12 @@ export default function DirectoryView(props: DirectoryViewProps) {
     fetchItems();
   });
 
+  //----- Memos -----
+  const filteredItems = useMemo(
+    () => [ ...items.filter((h) => h.name.includes(search)).sort((a, b) => asNumber(a.kind) - asNumber(b.kind)).entries() ],
+    [ items, search ]
+  );
+	
   //----- Events -----
   function onSearch() {
     const text = (document.getElementById("dirSearch") as HTMLInputElement).value;
@@ -37,25 +43,18 @@ export default function DirectoryView(props: DirectoryViewProps) {
   }
 
   //----- View -----
-  const tableItems = [...items.entries()]
-    .filter(([, handle]) => handle.name.includes(search))
-    .sort((a, b) => {
-      const [, handleA] = a;
-      const [, handleB] = b;
-      return asNumber(handleA.kind) - asNumber(handleB.kind);
-    })
-    .map(([index, handle]) =>
-      <tr key={index}>
-        <td>
-          {handle.kind === "directory" ? (
-            <i className="bi bi-folder" />
-          ) : (
-            <i className="bi bi-file-earmark-fill"></i>
-          )}
-        </td>
-        <td>{handle.name}</td>
-      </tr>
-    );
+  const tableItems = filteredItems.map(([index, handle]) => (
+    <tr key={index}>
+      <td>
+        {handle.kind === "directory" ? (
+          <i className="bi bi-folder" />
+        ) : (
+          <i className="bi bi-file-earmark-fill"></i>
+        )}
+      </td>
+      <td>{handle.name}</td>
+    </tr>
+  ));
 	
   return (
 		<table className="table table-striped">
