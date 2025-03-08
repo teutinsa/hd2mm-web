@@ -18,10 +18,13 @@ type NavBarProps = {
 }
 
 export default function NavBar(props: NavBarProps) {
+  //----- Services -----
   const { t } = useTranslation();
-
+  
+  //----- State -----
   const [ darkmode, setDarkmode ] = useState(isDarkmode());
 
+  //----- Events -----
   function toggleDarkmode() {
     const value = isDarkmode();
     if (value) {
@@ -32,6 +35,7 @@ export default function NavBar(props: NavBarProps) {
     setDarkmode(!value);
   }
 
+  //----- View -----
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
