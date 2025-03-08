@@ -17,6 +17,10 @@ export default function DemoFileUI() {
     }
   }
 
+  function onClick(dir: FileSystemDirectoryHandle) {
+    setFolder(dir);
+  }
+
   //----- View -----
   return (
     <>
@@ -25,7 +29,7 @@ export default function DemoFileUI() {
           <button className="btn btn-dark" onClick={onBrowse}>Browse Test</button>
         </NavItem>
       </NavBar>
-      {folder != null && <DirectoryView directory={folder} />}
+      {folder != null && <DirectoryView directory={folder} onBrowse={onClick} />}
     </>
   );
 }

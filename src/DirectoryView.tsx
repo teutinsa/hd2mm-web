@@ -2,6 +2,7 @@ import { KeyboardEvent, useEffect, useMemo, useState } from "react";
 
 type DirectoryViewProps = {
 	directory: FileSystemDirectoryHandle;
+  onBrowse: (dir: FileSystemDirectoryHandle) => void;
 }
 
 export default function DirectoryView(props: DirectoryViewProps) {
@@ -10,13 +11,16 @@ export default function DirectoryView(props: DirectoryViewProps) {
 	const [ search, setSearch ] = useState("");
 
   //----- Effects -----
-  useEffect(() => {
-    async function fetchItems() {
-      const fetched = await getItems(props.directory);
-      setItems(fetched);
-    }
-    fetchItems();
-  });
+  useEffect(
+    () => {
+      async function fetchItems() {
+        const fetched = await getItems(props.directory);
+        setItems(fetched);
+      }
+      fetchItems();
+    },
+    [ props.directory ]
+  );
 
   //----- Memos -----
   const filteredItems = useMemo(
@@ -43,21 +47,35 @@ export default function DirectoryView(props: DirectoryViewProps) {
   }
 
   //----- View -----
-  const tableItems = filteredItems.map(([index, handle]) => (
-    <tr key={index}>
-      <td>
-        {handle.kind === "directory" ? (
-          <i className="bi bi-folder" />
-        ) : (
-          <i className="bi bi-file-earmark-fill"></i>
-        )}
-      </td>
-      <td>{handle.name}</td>
-    </tr>
-  ));
+  const tableItems = filteredItems.map(([index, handle]) => {
+    if (handle.kind === "directory") {
+      const onClick = () => {
+        const [, handle] = filteredItems[index];
+        props.onBrowse(handle as FileSystemDirectoryHandle);
+      };
+
+      return (
+        <tr key={index} style={{ cursor: "pointer" }} onClick={onClick}>
+          <td>
+            <i className="bi bi-folder" />
+          </td>
+          <td>{handle.name}</td>
+        </tr>
+      );
+    } else {
+      return (
+        <tr key={index}>
+          <td>
+            <i className="bi bi-file-earmark-fill" />
+          </td>
+          <td>{handle.name}</td>
+        </tr>
+      );
+    }
+  });
 	
   return (
-		<table className="table table-striped">
+		<table className="table table-hover">
 			<thead>
 				<tr>
 					<th />
