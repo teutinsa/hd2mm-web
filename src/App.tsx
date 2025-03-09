@@ -2,6 +2,7 @@ import { useState } from "react";
 import DemoFileUI from "./DemoFileUI";
 import { useTranslation } from "react-i18next";
 import NavBar from "./NavBar";
+import { Button } from "./components/ui/button";
 
 export default function App() {
   const { t } = useTranslation();
@@ -18,9 +19,9 @@ export default function App() {
   const supported = "showOpenFilePicker" in window;
   if (!supported) {
     return (
-      <div className="position-relative vw-100 vh-100">
-        <div className="position-absolute top-50 start-50 translate-middle border rounded-1 mw-50 p-3 bg-body-tertiary shadow-lg">
-          <span className="text-center text-danger">{t("app.unsupportedError")}</span>
+      <div>
+        <div>
+          <span>{t("app.unsupportedError")}</span>
         </div>
       </div>
     );
@@ -34,11 +35,11 @@ export default function App() {
     ) : (
       <>
         <NavBar />
-        <div className="position-relative vw-100 vh-100">
-          <div className="vstack gap-3 position-absolute top-50 start-50 translate-middle border rounded-1 mw-50 p-3">
-            <h3 className="text-center">{t("app.disclaimer.title")}</h3>
+        <div>
+          <div>
+            <h3>{t("app.disclaimer.title")}</h3>
             <span>{t("app.disclaimer.content")}</span>
-            <button className="btn btn-primary" onClick={onOkClick}>{t("app.disclaimer.button")}</button>
+            <Button onClick={onOkClick}>{t("app.disclaimer.button")}</Button>
           </div>
         </div>
       </>

@@ -1,4 +1,5 @@
 import { KeyboardEvent, useEffect, useMemo, useState } from "react";
+import { Button } from "./components/ui/button";
 
 type DirectoryViewProps = {
 	directory: FileSystemDirectoryHandle;
@@ -75,15 +76,15 @@ export default function DirectoryView(props: DirectoryViewProps) {
   });
 	
   return (
-		<table className="table table-hover user-select-none">
+		<table>
 			<thead>
 				<tr>
 					<th />
-					<td className="d-flex">
-            <input id="dirSearch" className="form-control me-2" type="search" placeholder="Search" aria-label="Search" defaultValue={search} onKeyDown={onKeyDown} onChange={onChange}/>
-            <button className="btn btn-outline-primary" onClick={onSearch}>
+					<td>
+            <input id="dirSearch" type="search" placeholder="Search" aria-label="Search" defaultValue={search} onKeyDown={onKeyDown} onChange={onChange}/>
+            <Button onClick={onSearch}>
               <i className="bi bi-search" />
-            </button>
+            </Button>
           </td>
 				</tr>
 				<tr>

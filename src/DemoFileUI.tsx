@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DirectoryView from "./DirectoryView";
 import NavBar, { NavItem } from "./NavBar";
+import { Button } from "./components/ui/button";
 
 export default function DemoFileUI() {
   //----- State -----
@@ -26,7 +27,7 @@ export default function DemoFileUI() {
     <>
       <NavBar>
         <NavItem>
-          <button className="btn btn-dark" onClick={onBrowse}>Browse Test</button>
+          <Button onClick={onBrowse}>Browse Test</Button>
         </NavItem>
       </NavBar>
       {folder != null && <DirectoryView directory={folder} onBrowse={onClick} />}
