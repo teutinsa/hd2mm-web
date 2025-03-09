@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import NavBar from "./NavBar";
 import { Button } from "./components/ui/button";
 import { Card } from "./components/ui/card";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 export default function App() {
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ export default function App() {
   }
   
   return (
-    <>
+    <ThemeProvider defaultTheme="dark">
       <title>{t("app.title")}</title>
       {acknowledged ? (
         <DemoFileUI />
@@ -45,6 +46,6 @@ export default function App() {
           </div>
         </>
       )}
-    </>
+    </ThemeProvider>
   );
 }

@@ -79,27 +79,26 @@ export default function DirectoryView(props: DirectoryViewProps) {
   });
 	
   return (
-    <Table>
-      <TableCaption>{props.directory.name}</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableCell />
-          <TableCell className="flex flex-row space-x-1">
-            <Input id="dirSearch" type="search" placeholder="Search" defaultValue={search} onKeyDown={onKeyDown} onChange={onChange}/>
-            <Button onClick={onSearch}>
-              <IconSearch className="size-5 stroke-current stroke-3" />
-            </Button>
-          </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableHead>Type</TableHead>
-          <TableHead>Name</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {tableItems}
-      </TableBody>
-    </Table>
+    <>
+      <div className="flex flex-row space-x-1 p-1 pl-2 pr-2">
+        <Input id="dirSearch" type="search" placeholder="Search" defaultValue={search} onKeyDown={onKeyDown} onChange={onChange}/>
+        <Button variant="outline" onClick={onSearch}>
+          <IconSearch className="size-5 stroke-current stroke-3" />
+        </Button>
+      </div>
+      <Table>
+        <TableCaption>{props.directory.name}</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Type</TableHead>
+            <TableHead>Name</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {tableItems}
+        </TableBody>
+      </Table>
+    </>
 	);
 }
 
