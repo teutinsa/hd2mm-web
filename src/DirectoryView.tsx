@@ -1,5 +1,10 @@
 import { KeyboardEvent, useEffect, useMemo, useState } from "react";
 import { Button } from "./components/ui/button";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./components/ui/table";
+import { Input } from "./components/ui/input";
+import SearchSvg from "./assets/search.svg?react";
+import FolderSvg from "./assets/folder.svg?react";
+import FileSvg from "./assets/file.svg?react";
 
 type DirectoryViewProps = {
 	directory: FileSystemDirectoryHandle;
@@ -56,46 +61,47 @@ export default function DirectoryView(props: DirectoryViewProps) {
       };
 
       return (
-        <tr key={index} style={{ cursor: "pointer" }} onClick={onClick}>
-          <td>
-            <i className="bi bi-folder" />
-          </td>
-          <td>{handle.name}</td>
-        </tr>
+        <TableRow key={index} className="cursor-pointer" onClick={onClick}>
+          <TableCell>
+            <FolderSvg className="fill-current size-6" />
+          </TableCell>
+          <TableCell>{handle.name}</TableCell>
+        </TableRow>
       );
     } else {
       return (
-        <tr key={index}>
-          <td>
-            <i className="bi bi-file-earmark-fill" />
-          </td>
-          <td>{handle.name}</td>
-        </tr>
+        <TableRow key={index}>
+          <TableCell>
+            <FileSvg className="fill-current size-6" />
+          </TableCell>
+          <TableCell>{handle.name}</TableCell>
+        </TableRow>
       );
     }
   });
 	
   return (
-		<table>
-			<thead>
-				<tr>
-					<th />
-					<td>
-            <input id="dirSearch" type="search" placeholder="Search" aria-label="Search" defaultValue={search} onKeyDown={onKeyDown} onChange={onChange}/>
+    <Table>
+      <TableCaption>{props.directory.name}</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableCell />
+          <TableCell className="flex flex-row space-x-1">
+            <Input id="dirSearch" type="search" placeholder="Search" defaultValue={search} onKeyDown={onKeyDown} onChange={onChange}/>
             <Button onClick={onSearch}>
-              <i className="bi bi-search" />
+              <SearchSvg className="size-5 stroke-current stroke-3"/>
             </Button>
-          </td>
-				</tr>
-				<tr>
-					<th>Type</th>
-					<th>Name</th>
-				</tr>
-			</thead>
-      <tbody>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableHead>Type</TableHead>
+          <TableHead>Name</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
         {tableItems}
-      </tbody>
-		</table>
+      </TableBody>
+    </Table>
 	);
 }
 

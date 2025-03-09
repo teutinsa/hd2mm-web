@@ -24,13 +24,13 @@ export default function DemoFileUI() {
 
   //----- View -----
   return (
-    <>
+    <div className="pt-16">
       <NavBar>
         <NavItem>
           <Button onClick={onBrowse}>Browse Test</Button>
         </NavItem>
       </NavBar>
       {folder != null && <DirectoryView directory={folder} onBrowse={onClick} />}
-    </>
+    </div>
   );
 }

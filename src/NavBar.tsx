@@ -1,5 +1,8 @@
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { Badge } from "./components/ui/badge";
+import { Separator } from "./components/ui/separator";
+import ReactSvg from "./assets/react.svg?react";
 
 type NavItemProps = {
   children?: ReactNode
@@ -7,7 +10,7 @@ type NavItemProps = {
 
 export function NavItem(props: NavItemProps) {
   return (
-    <li className="nav-item">
+    <li className="align-middle">
       {props.children}
     </li>
   );
@@ -27,11 +30,19 @@ export default function NavBar(props: NavBarProps) {
 
   //----- View -----
   return (
-    <nav>
-      <div>
-        <span>{t("app.title")}</span>
-        <ul>
+    <nav className="fixed top-0 left-0 w-full bg-card shadow-md z-50">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        <h1 className="text-3xl font-bold">{t("app.title")}</h1>
+        <ul className="flex space-x-1">
           {props.children}
+          <NavItem>
+            <Separator orientation="vertical" />
+          </NavItem>
+          <NavItem>
+            <a href="https://react.dev">
+              <ReactSvg />
+            </a>
+          </NavItem>
         </ul>
       </div>
     </nav>
