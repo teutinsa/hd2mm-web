@@ -30,21 +30,21 @@ export default function App() {
   
   return (
     <>
-    <title>{t("app.title")}</title>
-    {acknowledged ? (
-      <DemoFileUI />
-    ) : (
-      <>
-        <NavBar />
-        <div className="fixed w-full h-full flex items-center justify-center">
-          <Card className="p-6 max-w-md space-y-4">
-            <h3 className="text-center text-xl font-semibold">{t("app.disclaimer.title")}</h3>
-            <p className="text-muted-foreground">{t("app.disclaimer.content")}</p>
-            <Button onClick={onOkClick}>{t("app.disclaimer.button")}</Button>
-          </Card>
-        </div>
-      </>
-    )}
+      <title>{t("app.title")}</title>
+      {acknowledged ? (
+        <DemoFileUI />
+      ) : (
+        <>
+          <NavBar />
+          <div className="fixed w-full h-full flex items-center justify-center">
+            <Card className="p-6 max-w-md space-y-4">
+              <h3 className="text-center text-xl font-semibold">{t("app.disclaimer.title")}</h3>
+              <p className="text-muted-foreground">{t("app.disclaimer.content")}</p>
+              <Button onClick={onOkClick}>{t("app.disclaimer.button")}</Button>
+            </Card>
+          </div>
+        </>
+      )}
     </>
   );
 }

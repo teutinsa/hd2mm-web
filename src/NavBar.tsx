@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { Badge } from "./components/ui/badge";
 import { Separator } from "./components/ui/separator";
 import ReactSvg from "./assets/react.svg?react";
 
