@@ -2,9 +2,7 @@ import { KeyboardEvent, useEffect, useMemo, useState } from "react";
 import { Button } from "./components/ui/button";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./components/ui/table";
 import { Input } from "./components/ui/input";
-import SearchSvg from "./assets/search.svg?react";
-import FolderSvg from "./assets/folder.svg?react";
-import FileSvg from "./assets/file.svg?react";
+import { Search as IconSearch, File as IconFile, Folder as IconFolder } from "lucide-react"
 
 type DirectoryViewProps = {
 	directory: FileSystemDirectoryHandle;
@@ -63,7 +61,7 @@ export default function DirectoryView(props: DirectoryViewProps) {
       return (
         <TableRow key={index} className="cursor-pointer" onClick={onClick}>
           <TableCell>
-            <FolderSvg className="fill-current size-6" />
+            <IconFolder className="fill-current size-6" />
           </TableCell>
           <TableCell>{handle.name}</TableCell>
         </TableRow>
@@ -72,7 +70,7 @@ export default function DirectoryView(props: DirectoryViewProps) {
       return (
         <TableRow key={index}>
           <TableCell>
-            <FileSvg className="fill-current size-6" />
+            <IconFile className="fill-current size-6" />
           </TableCell>
           <TableCell>{handle.name}</TableCell>
         </TableRow>
@@ -89,7 +87,7 @@ export default function DirectoryView(props: DirectoryViewProps) {
           <TableCell className="flex flex-row space-x-1">
             <Input id="dirSearch" type="search" placeholder="Search" defaultValue={search} onKeyDown={onKeyDown} onChange={onChange}/>
             <Button onClick={onSearch}>
-              <SearchSvg className="size-5 stroke-current stroke-3"/>
+              <IconSearch className="size-5 stroke-current stroke-3" />
             </Button>
           </TableCell>
         </TableRow>

@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Separator } from "./components/ui/separator";
-import ReactSvg from "./assets/react.svg?react";
 
 type NavItemProps = {
   children?: ReactNode
@@ -39,7 +38,7 @@ export default function NavBar(props: NavBarProps) {
           </NavItem>
           <NavItem>
             <a href="https://react.dev">
-              <ReactSvg />
+              <img src="./src/assets/react.svg" />
             </a>
           </NavItem>
         </ul>
